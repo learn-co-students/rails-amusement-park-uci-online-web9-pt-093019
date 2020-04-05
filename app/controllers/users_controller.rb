@@ -5,12 +5,22 @@ class UsersController < ApplicationController
 
     def create
         @user = User.new(user_params)
-        #binding.pry
         if @user.save
             session[:user_id] = @user.id 
-            redirect_to root_path
+            redirect_to user_path(@user)
         else
             render :new
+        end
+    end
+
+    def show
+        if session[:user_id].blank?
+            redirect_to root_path
+        else
+            @user = User.find(params[:id])
+            if !session[:user_id] == @user.id
+                redirect_to root_path
+            end
         end
     end
 

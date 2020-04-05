@@ -1,0 +1,23 @@
+<h1>Park Attractions</h1>
+
+<table class='table'>
+    <tr>
+        <td>Name</td>
+        <td>Tickets</td>
+        <td>Details</td>
+    </tr>
+    <% @attractions.each do |ride| %>
+        <tr>
+            <td><%= ride.name %></td>
+            <td><%= ride.tickets %></td>
+            <% if logged_in? && current_user.admin == true %>
+                <td><%= link_to "Show #{ride.name}", attraction_path(ride.id) %></td>
+            <% else %>
+                <td><%= link_to "Go on #{ride.name}", attraction_path(ride.id) %></td>
+            <% end %>
+    <% end %>
+</table>
+
+<% if current_user.admin == true %>
+    <%= link_to "New Attraction", new_attraction_path %>
+<% end %>
