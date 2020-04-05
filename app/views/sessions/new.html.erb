@@ -1,0 +1,6 @@
+<%= form_tag signin_path do %>
+    <strong>Name:</strong> <%= collection_select(:user, :name, @users, :name, :name) %>
+    <p>Enter Password: <%= text_field_tag :'password' %></p>
+
+    <%= submit_tag "Sign In" %>
+<% end %>
